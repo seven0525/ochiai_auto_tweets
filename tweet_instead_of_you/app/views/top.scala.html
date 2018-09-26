@@ -1,0 +1,29 @@
+@import org.webjars.play.WebJarsUtil
+@import application.common.TwitterSession
+@import play.cache.SyncCacheApi
+@this(cacheApi: SyncCacheApi, webJarsUtil: WebJarsUtil)
+@(message: String, style: String = "scala",
+        session: TwitterSession = (cacheApi.get("twitter_user")).asInstanceOf[TwitterSession])
+@defining(play.core.PlayVersion.current) { version =>
+
+<section id="top">
+  <div class="wrapper">
+    <h1><a href="https://playframework.com/documentation/@version/Home">@message</a></h1>
+  </div>
+</section>
+
+<div id="content" class="wrapper doc">
+<article>
+
+  <h1>Welcome to Play</h1>
+    @if(session == null) {
+        <a href="@routes.TwitterController.login">ログイン</a>
+    } else {
+        <a href="@routes.TweetController.show()">あなたのツイートを生成</a>
+        <a href="@routes.TweetController.show()">落合陽一のツイートを生成</a>
+    }
+</article>
+</div>
+}
+@webJarsUtil.locate("bootstrap.min.css").css()
+@webJarsUtil.locate("bootstrap.min.js").script()
