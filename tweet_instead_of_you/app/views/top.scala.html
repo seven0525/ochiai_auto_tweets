@@ -6,23 +6,29 @@
         session: TwitterSession = (cacheApi.get("twitter_user")).asInstanceOf[TwitterSession])
 @defining(play.core.PlayVersion.current) { version =>
 
-<section id="top">
-  <div class="wrapper">
-    <h1><a href="https://playframework.com/documentation/@version/Home">@message</a></h1>
+<div class="container">
+<section id="top" class="row">
+  <div class="col-sm-12">
+    <h1>@message</h1>
   </div>
 </section>
 
-<div id="content" class="wrapper doc">
-<article>
+<div id="content" class="row">
+<article class="col-sm-12">
 
-  <h1>Welcome to Play</h1>
+  <h1>トップ</h1>
     @if(session == null) {
-        <a href="@routes.TwitterController.login">ログイン</a>
+        <a href="@routes.TwitterController.login" class="btn btn-info badge-pill" role="button">ログイン</a>
     } else {
-        <a href="@routes.TweetController.show()">あなたのツイートを生成</a>
-        <a href="@routes.TweetController.show()">落合陽一のツイートを生成</a>
+      @form.helper(@routes.TweetController.new_tweet){
+        <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
+      }
+      @form.helper(@routes.TweetController.new_tweet){
+        <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
+      }
     }
 </article>
+</div>
 </div>
 }
 @webJarsUtil.locate("bootstrap.min.css").css()

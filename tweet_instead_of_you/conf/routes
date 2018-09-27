@@ -14,7 +14,7 @@ GET     /twitterOAuthCallback       controllers.TwitterController.twitterOAuthCa
 
 GET     /logout                     controllers.TwitterController.logout
 
-GET     /tweet/:twitterId           controllers.TweetController.show(twitterId)
+POST    /new_tweet					controllers.TweetController.new
 
-POST    /tweet                      controllers.TweetController.post
+POST    /send_tweet					controllers.TweetController.post
 
