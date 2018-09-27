@@ -21,9 +21,11 @@
         <a href="@routes.TwitterController.login" class="btn btn-info badge-pill" role="button">ログイン</a>
     } else {
       @form.helper(@routes.TweetController.new_tweet){
+        <input type="hidden" name="twitterId" value="@session.twitterId">
         <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
       }
       @form.helper(@routes.TweetController.new_tweet){
+        <input type="hidden" name="twitterId" value="ochyai">
         <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
       }
     }
