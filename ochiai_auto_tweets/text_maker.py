@@ -29,8 +29,13 @@ def __make_sentence(dic):
     ret.append(w1)
     ret.append(w2)
     while True:
+        if not dic[w1][w2]:
+            break
         w3 = __choice_word(dic[w1][w2])
+        if len(ret) + len(w3) >= 140:
+            break
         ret.append(w3)
-        if w3 == "．": break
+        if w3 == "．" or w3 == "。":
+            break
         w1, w2 = w2, w3
     return "".join(ret)

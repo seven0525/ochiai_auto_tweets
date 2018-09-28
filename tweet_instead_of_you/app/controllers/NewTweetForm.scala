@@ -1,1 +1,0 @@
-case class NewTweetForm(twitterId: String)

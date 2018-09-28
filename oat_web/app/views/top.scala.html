@@ -1,0 +1,39 @@
+@import org.webjars.play.WebJarsUtil
+@import application.common.TwitterSession
+@import helper._
+
+
+@(message: String, style: String = "scala", twitterSession: Option[TwitterSession])(implicit request: RequestHeader)
+
+@main(title = "TOP") {
+    <div class="container">
+        <section id="top" class="row">
+            <div class="col-sm-12">
+                <h1>@message</h1>
+            </div>
+        </section>
+
+        <div id="content" class="row">
+            <article class="col-sm-12">
+
+                <h1>トップ</h1>
+                @twitterSession match {
+                    case Some(session) => {
+                        @form(routes.TweetController.show()){
+                            @CSRF.formField
+                            <input type="hidden" name="twitterId" value="@session.getTwitterId()">
+                            <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
+                        }
+                        @form(routes.TweetController.show()){
+                            <input type="hidden" name="twitterId" value="ochyai">
+                            <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
+                        }
+                    }
+                    case _ => {
+                        <a href="@routes.TwitterController.login()" class="btn btn-info badge-pill" role="button">ログイン</a>
+                    }
+                }
+            </article>
+        </div>
+    </div>
+}
