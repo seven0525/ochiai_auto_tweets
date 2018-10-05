@@ -8,8 +8,8 @@ import javax.inject.{Inject, Singleton}
 import scala.collection.mutable
 
 @Singleton
-class TweetsService @Inject()(tweetGeneratorClient: ITweetGeneratorClient) {
-  def generateTweet(tweets: mutable.Buffer[Tweet]) = {
+class TweetsService @Inject()(tweetGeneratorClient: ITweetGeneratorClient) extends ITweetsService {
+  override def generateTweet(tweets: mutable.Buffer[Tweet]) = {
     val file = Paths.get("/Users/kuratadaisuke/ochiai_auto_tweets/tmp/" + tweets.head.getSenderId() + "tweet.txt")
     if(Files.notExists(file)) Files.createFile(file)
 
@@ -19,6 +19,5 @@ class TweetsService @Inject()(tweetGeneratorClient: ITweetGeneratorClient) {
     fileInputWriter.close()
 
     tweetGeneratorClient.generateTweet(tweets.head.getSenderId())
-
   }
 }

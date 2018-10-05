@@ -1,7 +1,6 @@
 import com.google.inject.AbstractModule
-
 import client.{Tweet4JClient, TweetGeneratorClient}
-import domain.tweet.{ITweetClient, ITweetGeneratorClient}
+import domain.tweet.{ITweetClient, ITweetGeneratorClient, ITweetsService, TweetsService}
 
 /**
  * This class is a Guice module that tells Guice how to bind several
@@ -19,6 +18,7 @@ class Module extends AbstractModule {
     //SingletonのTraitをInjectionするときにどの実装クラスをInjectionするか指定
     bind(classOf[ITweetClient]).to(classOf[Tweet4JClient])
     bind(classOf[ITweetGeneratorClient]).to(classOf[TweetGeneratorClient])
+    bind(classOf[ITweetsService]).to(classOf[TweetsService])
   }
 
 }

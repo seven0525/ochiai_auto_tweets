@@ -1,10 +1,10 @@
 package application.tweet
 
-import domain.tweet.{ITweetClient, Tweet, TweetsService}
+import domain.tweet.{ITweetClient, ITweetsService, Tweet}
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class TweetUseCase @Inject()(twitterClient: ITweetClient, tweetsService: TweetsService) {
+class TweetUseCase @Inject()(twitterClient: ITweetClient, tweetsService: ITweetsService) {
   def generateTweet(token: String, secret: String, twitterId: String) = {
     val tweets = twitterClient.getUserTimeline(token: String, secret: String, twitterId)
     tweetsService.generateTweet(tweets)
