@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
+import copy
 import json
 import re
 import string
 
-import pandas as pd
 from janome.tokenizer import Tokenizer
-import copy
 
 
 def analyze_csv_by_markov(twitter_id):
     directory_name = "/Users/kuratadaisuke/ochiai_auto_tweets/tmp/"
-    text = open(directory_name + twitter_id + 'tweet.txt', 'r').read().split()
+    with open(directory_name + twitter_id + 'tweet.txt', 'r') as f:
+        tweets = f.readlines()
+
+    text = []
+    for i in range(0, len(tweets)):
+        if not tweets[i].startswith("RT"):
+            tweets[i] = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "", tweets[i])
+            tweets[i] = re.sub(r"@[a-zA-Z0-9_\-.]{3,15}", "", tweets[i])
+            text.extend(tweets[i].split())
+
     formatted_text = __remove_non_ascii_letter(tweet_contents=text)
 
     t = Tokenizer()
@@ -37,7 +45,7 @@ def __make_dictionary(words):
         if len(tmp) > 3:
             tmp = tmp[1:]
         __set_word3(dictionary, tmp)
-        if word == '.':
+        if word == '.' or word == '。':
             tmp = ['@']
             continue
     return dictionary
@@ -63,8 +71,6 @@ def __remove_non_ascii_letter(tweet_contents: list):
     tweet_contents_only_ascii_letter = copy.deepcopy(tweet_contents)
     for line in tweet_contents_only_ascii_letter:
         for word in line:
-            word = re.sub("https?://[\w/:%#\$&\?\(\)~\.=\+\-]+", "", word)
-            word = re.sub("@[\\w]{1,15}", "", word)
             if word in string.ascii_letters or word in string.digits:
                 if line in tweet_contents_only_ascii_letter:
                     tweet_contents_only_ascii_letter.remove(line)
