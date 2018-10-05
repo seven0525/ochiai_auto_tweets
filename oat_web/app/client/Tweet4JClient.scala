@@ -1,8 +1,5 @@
 package client
 
-import java.util
-import java.util.stream.Collectors
-
 import domain.tweet.{ITweetClient, Tweet}
 import javax.inject.Singleton
 import twitter4j._
