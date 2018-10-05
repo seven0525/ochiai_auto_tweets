@@ -28,12 +28,12 @@
                     @form(tweet.routes.TweetController.show()){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="@session.getTwitterId()">
-                        <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
+                        <button class="btn btn-info badge-pill mr-1">あなた風のツイートを生成</button>
                     }
                     @form(tweet.routes.TweetController.show()){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="ochyai">
-                        <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
+                        <button class="btn btn-info badge-pill ml-1">落合陽一風のツイートを生成</button>
                     }
                 }
                 case _ => {
