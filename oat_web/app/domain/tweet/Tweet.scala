@@ -2,20 +2,20 @@ package domain.tweet
 
 class Tweet {
 
-  var body: String = _
-  var senderId: Long = _
+  private var body: String = _
+  private var senderId: String = _
 
   def getBody(): String = {
     return body
   }
 
-  def getSenderId(): Long = {
+  def getSenderId(): String = {
     return senderId
   }
 }
 
 object Tweet {
-  def apply(body: String, senderId: Long): Tweet = {
+  def apply(body: String, senderId: String): Tweet = {
     val tweet: Tweet = new Tweet()
     tweet.body = body
     tweet.senderId = senderId

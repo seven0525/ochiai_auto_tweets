@@ -6,19 +6,19 @@
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 # An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
+#GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
+#GET     /message                    controllers.AsyncController.message
 
-GET     /login                      controllers.TwitterController.login
+GET     /login                      controllers.auth.AuthController.login
 
-GET     /twitterOAuthCallback       controllers.TwitterController.twitterOAuthCallback
+GET     /twitterOAuthCallback       controllers.auth.AuthController.twitterOAuthCallback
 
-GET     /logout                     controllers.TwitterController.logout
+GET     /logout                     controllers.auth.AuthController.logout
 
-POST    /new_tweet					controllers.TweetController.show
+POST    /new_tweet					controllers.tweet.TweetController.show
 
-POST    /send_tweet					controllers.TweetController.post
+POST    /tweets     				controllers.tweet.TweetController.post
 
 
 # Map static resources from the /public folder to the /assets URL path

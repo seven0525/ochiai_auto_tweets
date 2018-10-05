@@ -9,13 +9,13 @@
             </div>
         </section>
 
-        <div id="content" class="row">
-            <article class="col-sm-12">
+        <div id="content" class="row justify-content-center">
+            <article class="col-sm-8">
                 <h1>ツイート生成結果</h1>
                 <p>@tweetText</p>
-                @form(routes.TweetController.post()){
+                @form(tweet.routes.TweetController.post()){
                     @CSRF.formField
-                    <input type="hidden" name="tweetText" value="@tweetText">
+                    <input type="hidden" name="tweetText" value="@tweetText" class="">
                     <button class="btn btn-info badge-pill">ツイートする</button>
                 }
             </article>

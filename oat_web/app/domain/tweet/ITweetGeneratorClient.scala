@@ -1,5 +1,5 @@
 package domain.tweet
 
 trait ITweetGeneratorClient {
-  def generateTweet(twitterId: Long): Tweet
+  def generateTweet(twitterId: String): Tweet
 }

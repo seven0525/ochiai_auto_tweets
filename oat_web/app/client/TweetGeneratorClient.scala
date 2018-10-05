@@ -11,7 +11,7 @@ import scala.concurrent.{Await, Future}
 @Singleton
 class TweetGeneratorClient @Inject()(ws: WSClient) extends ITweetGeneratorClient {
 
-  def generateTweet(twitterId: Long): Tweet = {
+  def generateTweet(twitterId: String): Tweet = {
     val request: WSRequest = ws.url("http://127.0.0.1:5000/generate_tweet/" + twitterId)
     val futureResult: Future[String] = request.get().map{
       response => (response.json \ "tweet").as[String]

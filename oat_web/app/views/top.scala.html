@@ -1,39 +1,46 @@
-@import org.webjars.play.WebJarsUtil
 @import application.common.TwitterSession
 @import helper._
-
 
 @(message: String, style: String = "scala", twitterSession: Option[TwitterSession])(implicit request: RequestHeader)
 
 @main(title = "TOP") {
     <div class="container">
-        <section id="top" class="row">
+        <section class="row">
             <div class="col-sm-12">
                 <h1>@message</h1>
             </div>
         </section>
 
-        <div id="content" class="row">
-            <article class="col-sm-12">
-
-                <h1>トップ</h1>
-                @twitterSession match {
-                    case Some(session) => {
-                        @form(routes.TweetController.show()){
-                            @CSRF.formField
-                            <input type="hidden" name="twitterId" value="@session.getTwitterId()">
-                            <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
-                        }
-                        @form(routes.TweetController.show()){
-                            <input type="hidden" name="twitterId" value="ochyai">
-                            <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
-                        }
-                    }
-                    case _ => {
-                        <a href="@routes.TwitterController.login()" class="btn btn-info badge-pill" role="button">ログイン</a>
-                    }
-                }
+        <div class="row justify-content-md-center">
+            <article class="col-sm-8">
+                <h1 class="text-center">○○っぽいツイートジェネレータ</h1>
+                <p>
+                    ツイ廃を目指すあなたは、ときに投稿内容に迷うことがあるでしょう。つぶやきたい、けどつぶやく内容がない。
+                    そんなあなたはこのツイートジェネレータを使ってください。あなたが過去につぶやいた内容をもとに、自動でつぶやく内容を作ることができます。
+                    さあ、適当なツイートをこいつに作らせる間に、あなたはユニークなバズツイートを考えるんだ。
+                </p>
             </article>
         </div>
+
+        <div class="row justify-content-center">
+            @twitterSession match {
+                case Some(session) => {
+                    @form(tweet.routes.TweetController.show()){
+                        @CSRF.formField
+                        <input type="hidden" name="twitterId" value="@session.getTwitterId()">
+                        <button class="btn btn-info badge-pill">あなた風のツイートを生成</button>
+                    }
+                    @form(tweet.routes.TweetController.show()){
+                        @CSRF.formField
+                        <input type="hidden" name="twitterId" value="ochyai">
+                        <button class="btn btn-info badge-pill">落合陽一風のツイートを生成</button>
+                    }
+                }
+                case _ => {
+                    <a href="@auth.routes.AuthController.login()" class="btn btn-info badge-pill center" role="button">ログインしてツイ廃に一歩近づく</a>
+                }
+            }
+        </div>
+
     </div>
 }
