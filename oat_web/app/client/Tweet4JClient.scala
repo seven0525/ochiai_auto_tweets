@@ -45,7 +45,7 @@ class Tweet4JClient extends ITweetClient{
     try {
       val statuses: ResponseList[Status] = twitter.getUserTimeline(twitterId, paging)
       val tweets: Buffer[Tweet] = statuses.asScala
-        .filter(s => s.getText.startsWith("RT"))
+        .filterNot(s => s.getText.startsWith("RT"))
         .map(s => Tweet(s.getText, s.getUser.getScreenName))
 
       return tweets
