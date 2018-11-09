@@ -47,7 +47,6 @@ class Tweet4JClient extends ITweetClient{
       val tweets: Buffer[Tweet] = statuses.asScala
         .filterNot(s => s.getText.startsWith("RT"))
         .map(s => Tweet(s.getText, s.getUser.getScreenName))
-
       return tweets
     } catch {
       case e: TwitterException => throw e
