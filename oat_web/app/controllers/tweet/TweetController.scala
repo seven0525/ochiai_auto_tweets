@@ -29,8 +29,8 @@ class TweetController @Inject()(cc: ControllerComponents, tweetUseCase: TweetUse
       twitterSession match {
         case Some(twitterSession) => {
           val newTweetData = newTweetForm.bindFromRequest().get
-          val tweet: Tweet = tweetUseCase.generateTweet(twitterSession.getToken(), twitterSession.getSecret(), newTweetData.twitterId)
-          Ok(views.html.new_tweet(tweetText = tweet.getBody(), message = ""))
+          val tweet = tweetUseCase.generateTweet(twitterSession.getToken(), twitterSession.getSecret(), newTweetData.twitterId)
+          Ok(views.html.new_tweet(tweetText = tweet.map{t => t.getBody()}.getOrElse(""), message = ""))
         }
         case _ => Redirect("/")
       }

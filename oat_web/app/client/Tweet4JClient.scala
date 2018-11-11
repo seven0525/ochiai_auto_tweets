@@ -6,7 +6,7 @@ import twitter4j._
 import twitter4j.auth.AccessToken
 
 import scala.collection.JavaConverters._
-import scala.collection.mutable.Buffer
+import scala.util.Try
 
 
 /**
@@ -21,13 +21,11 @@ class Tweet4JClient extends ITweetClient{
     * @throws TwitterException
     * @return
     */
-  def updateStatus(token: String, secret: String, tweet: Tweet): Tweet = {
+  def updateStatus(token: String, secret: String, tweet: Tweet): Try[Tweet] = {
     val twitter: Twitter = createAuthorizedTwitterInstance(token, secret)
-    try {
+    Try {
       val status: Status = twitter.updateStatus(tweet.getBody())
-      return Tweet(status.getText, status.getUser.getScreenName)
-    } catch {
-      case e:TwitterException => throw e
+      Tweet(status.getText, status.getUser.getScreenName)
     }
   }
 
@@ -37,20 +35,16 @@ class Tweet4JClient extends ITweetClient{
     * @param secret
     * @return
     */
-  override def getUserTimeline(token: String, secret: String, twitterId: String): Buffer[Tweet] = {
+  override def getUserTimeline(token: String, secret: String, twitterId: String): Try[Seq[Tweet]] = {
     val twitter: Twitter = createAuthorizedTwitterInstance(token, secret)
     val paging: Paging = new Paging()
     paging.setCount(200)
     //    paging.setSinceId(sinceId)
-    try {
+    Try {
       val statuses: ResponseList[Status] = twitter.getUserTimeline(twitterId, paging)
-      val tweets: Buffer[Tweet] = statuses.asScala
-        .filterNot(s => s.getText.startsWith("RT"))
-        .map(s => Tweet(s.getText, s.getUser.getScreenName))
-
-      return tweets
-    } catch {
-      case e: TwitterException => throw e
+      statuses.asScala
+        .filterNot{s => s.getText.startsWith("RT")}
+        .map{s => Tweet(s.getText, s.getUser.getScreenName)}
     }
   }
 
