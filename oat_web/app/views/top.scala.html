@@ -25,15 +25,16 @@
         <div class="row justify-content-center">
             @twitterSession match {
                 case Some(session) => {
-                    @form(tweet.routes.TweetController.show()){
+                    <a></a>
+                    @form(tweet.routes.TweetController.show(), 'id -> "newTweetForm1"){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="@session.getTwitterId()">
-                        <button class="btn btn-info badge-pill mr-1">あなた風のツイートを生成</button>
+                        <button class="btn btn-info badge-pill mr-1" data-toggle="modal" data-target="#exampleModalCenter">あなた風のツイートを生成</button>
                     }
-                    @form(tweet.routes.TweetController.show()){
+                    @form(tweet.routes.TweetController.show(), 'id -> "newTweetForm2"){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="ochyai">
-                        <button class="btn btn-info badge-pill ml-1">落合陽一風のツイートを生成</button>
+                        <button class="btn btn-info badge-pill ml-1" data-toggle="modal" data-target="#exampleModalCenter">落合陽一風のツイートを生成</button>
                     }
                 }
                 case _ => {
@@ -41,6 +42,30 @@
                 }
             }
         </div>
-
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">生成されたツイート</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="tweetText"></p>
+                    </div>
+                    <div class="modal-footer">
+                        @form(api.routes.TweetController.post()){
+                            @CSRF.formField
+                            <input type="hidden" name="tweetText" value="">
+                            <button type="button" class="btn btn-secondary badge-pil" data-dismiss="modal">キャンセル</button>
+                            <button type="button" class="btn btn-primary badge-pill">ツイートする</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript" src='@routes.Assets.versioned("javascripts/main.js")'></script>
 }
