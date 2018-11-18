@@ -12,10 +12,6 @@ GET     /twitterOAuthCallback       controllers.auth.AuthController.twitterOAuth
 
 GET     /logout                     controllers.auth.AuthController.logout
 
-POST    /new_tweet					controllers.tweet.TweetController.show
-
-POST    /tweets     				controllers.tweet.TweetController.post
-
 + nocsrf
 POST    /api/_tweets                api.TweetController.show
 

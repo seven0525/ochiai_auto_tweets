@@ -26,12 +26,12 @@
             @twitterSession match {
                 case Some(session) => {
                     <a></a>
-                    @form(tweet.routes.TweetController.show(), 'id -> "newTweetForm1"){
+                    @form(api.routes.TweetController.post(), 'id -> "newTweetForm1"){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="@session.getTwitterId()">
                         <button class="btn btn-info badge-pill mr-1" data-toggle="modal" data-target="#exampleModalCenter">あなた風のツイートを生成</button>
                     }
-                    @form(tweet.routes.TweetController.show(), 'id -> "newTweetForm2"){
+                    @form(api.routes.TweetController.post(), 'id -> "newTweetForm2"){
                         @CSRF.formField
                         <input type="hidden" name="twitterId" value="ochyai">
                         <button class="btn btn-info badge-pill ml-1" data-toggle="modal" data-target="#exampleModalCenter">落合陽一風のツイートを生成</button>
