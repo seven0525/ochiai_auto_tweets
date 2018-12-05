@@ -7,9 +7,9 @@ import string
 from janome.tokenizer import Tokenizer
 
 
-def analyze_csv_by_markov(twitter_id):
+def analyze_csv_by_markov(text_file_name):
     directory_name = "/Users/kuratadaisuke/ochiai_auto_tweets/tmp/"
-    with open(directory_name + twitter_id + 'tweet.txt', 'r') as f:
+    with open(text_file_name) as f:
         tweets = f.readlines()
 
     text = []
