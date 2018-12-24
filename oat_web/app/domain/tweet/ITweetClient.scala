@@ -8,9 +8,3 @@ trait ITweetClient {
   def getUserTimeline(token: String, secret: String, twitterId: String): Try[Seq[Tweet]]
 
 }
-
-sealed abstract class PostTweetResult
-case class Success(tweet: Tweet) extends PostTweetResult
-abstract class Failure extends PostTweetResult
-case object CannotPostTweetException extends Failure
-
